@@ -72,3 +72,18 @@ class TestLightBoard(TestCase):
 
         actual = list(map(lambda row: row[0:2], board.grid[0:2]))
         self.assertEqual(actual, [[0, 0], [0, 0]])
+
+    def test_board_turn_off_partial_part_of_turned_on(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (2, 2))
+        board.turn_off((0, 0), (1, 1))
+        # 1 1 1 0...
+        # 0 0 1 0...
+        # 0 0 1 0...
+        actual_turned_on_col = list(map(lambda row: row[2], board.grid[0:3]))
+        actual_turned_on_row = board.grid[2][0:3]
+        actual_turned_off = list(map(lambda row: row[0:2], board.grid[0:2]))
+        self.assertEqual(actual_turned_off, [[0, 0], [0, 0]])
+        self.assertEqual(actual_turned_on_col, [1, 1, 1])
+        self.assertEqual(actual_turned_on_row, [1, 1, 1])
