@@ -2,16 +2,19 @@ from unittest import TestCase
 
 
 class LightCell:
-    DEFAULT_VALUE = 0
     TURNED_ON_VALUE = 1
+    TURNED_OFF_VALUE = 0
 
-    def __init__(self, x, y, value=DEFAULT_VALUE):
+    def __init__(self, x, y, value=TURNED_OFF_VALUE):
         self.value = value
         self.x = x
         self.y = y
 
     def turn_on(self):
         self.value = self.TURNED_ON_VALUE
+
+    def turn_off(self):
+        self.value = self.TURNED_OFF_VALUE
 
 
 class TestLightCell(TestCase):
@@ -33,3 +36,18 @@ class TestLightCell(TestCase):
         cell = LightCell(0, 0)
         cell.turn_on()
         self.assertEqual(cell.value, 1)
+
+    def test_cell_turn_off_works(self):
+        cell = LightCell(0, 0)
+
+        cell.turn_off()
+
+        self.assertEqual(cell.value, 0)
+
+    def test_cell_turn_off_after_turned_on_works(self):
+        cell = LightCell(0, 0)
+        cell.turn_on()
+
+        cell.turn_off()
+
+        self.assertEqual(cell.value, 0)
