@@ -1,35 +1,39 @@
 class Board:
 
-    def __init__(self, number):
+    def __init__(self, length):
         self.lighted = 0
-        self.grid = list(
-            map(lambda x: list(map(lambda y: 0, range(number))), range(number)))
+        self.grid = self.create_grid_with_zeros(length)
 
-    def turn_on(self, first_cord, second_cord):
-        self._apply_on_block(first_cord, second_cord, self.perform_turn_on)
+    @staticmethod
+    def create_grid_with_zeros(length):
+        return [[0 for _ in range(length)] for _ in range(length)]
 
-    def perform_turn_on(self, row, col):
+    def turn_on(self, first_coordinate, second_coordinate):
+        self._apply_on_block(first_coordinate, second_coordinate,
+                             self.perform_turn_on_for_cell)
+
+    def perform_turn_on_for_cell(self, row, col):
         self.lighted += (self.grid[row][col] + 1) % 2
         self.grid[row][col] = 1
 
-    def turn_off(self, first_cord, second_cord):
-        self._apply_on_block(first_cord, second_cord, self.perform_turn_off)
+    def turn_off(self, first_coordinate, second_coordinate):
+        self._apply_on_block(first_coordinate, second_coordinate,
+                             self.perform_turn_off_for_cell)
 
-    def perform_turn_off(self, row, col):
+    def perform_turn_off_for_cell(self, row, col):
         self.lighted -= (self.grid[row][col]) % 2
         self.grid[row][col] = 0
 
-    def toggle(self, first_cord, second_cord):
-        self._apply_on_block(first_cord, second_cord, self.perform_toggle)
+    def toggle(self, first_coordinate, second_coordinate):
+        self._apply_on_block(first_coordinate, second_coordinate,
+                             self.perform_toggle_for_cell)
 
-    def perform_toggle(self, row, col):
+    def perform_toggle_for_cell(self, row, col):
         self.lighted -= ((self.grid[row][col]) * 2) - 1
         self.grid[row][col] = int(not self.grid[row][col])
 
-
-
     @staticmethod
-    def _apply_on_block(first_cord, second_cord, method):
-        for row in range(first_cord[0], second_cord[0] + 1):
-            for col in range(first_cord[1], second_cord[1] + 1):
+    def _apply_on_block(first_coordinate, second_coordinate, method):
+        for row in range(first_coordinate[0], second_coordinate[0] + 1):
+            for col in range(first_coordinate[1], second_coordinate[1] + 1):
                 method(row, col)
