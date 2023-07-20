@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+import pytest
+
 from app.board import Board
 
 
@@ -144,3 +146,18 @@ class TestLightBoard(TestCase):
 
         self.assertEqual(board.lighted, 0)
 
+    def test_board_santa_instructions_works(self):
+
+        board = Board(1000)
+
+        board.turn_on((887, 9), (959, 629))
+        board.turn_on((454, 398), (844, 448))
+        board.turn_off((539, 243), (559, 965))
+        board.turn_off((370, 819), (676, 868))
+        board.turn_off((145, 40), (370, 997))
+        board.turn_off((301, 3), (808, 453))
+        board.turn_on((351, 678), (951, 908))
+        board.toggle((720, 196), (897, 994))
+        board.toggle((831, 394), (904, 860))
+
+        self.assertEqual(board.lighted, 230022)
