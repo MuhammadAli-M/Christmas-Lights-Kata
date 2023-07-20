@@ -2,7 +2,7 @@
 
 A coding kata to practice
 TDD. [Christmas Lights Kata](https://kata-log.rocks/christmas-lights-kata).
-I used python as a language.
+I used python.
 
 # Project Layout
 
