@@ -16,6 +16,7 @@ class LightCell:
     def turn_off(self):
         self.value = self.TURNED_OFF_VALUE
 
+    @property
     def is_turned_on(self):
         return self.value == self.TURNED_ON_VALUE
 
@@ -39,7 +40,7 @@ class TestLightCell(TestCase):
         cell = LightCell(0, 0)
         cell.turn_on()
         self.assertEqual(cell.value, 1)
-        self.assertTrue(cell.is_turned_on())
+        self.assertTrue(cell.is_turned_on)
 
     def test_cell_turn_off_works(self):
         cell = LightCell(0, 0)
@@ -63,4 +64,4 @@ class TestLightCell(TestCase):
         cell.turn_on()
 
         self.assertEqual(cell.value, 1)
-        self.assertTrue(cell.is_turned_on())
+        self.assertTrue(cell.is_turned_on)
