@@ -128,3 +128,12 @@ class TestLightBoard(TestCase):
         # 1 0 0 1...
         # 1 1 1 1...
 
+    def test_board_lighted_when_turned_16_on_4_on_again_should_not_increase(
+            self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (3, 3))
+        board.turn_on((1, 1), (2, 2))
+
+        self.assertEqual(board.lighted, 16)
+

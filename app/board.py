@@ -7,9 +7,9 @@ class Board:
 
     def turn_on(self, first_cord, second_cord):
         self._apply_on_block(first_cord, second_cord, self.perform_turn_on)
-        self.lighted += self.get_cells_affected_count(first_cord, second_cord)
 
     def perform_turn_on(self, row, col):
+        self.lighted += (self.grid[row][col] + 1) % 2
         self.grid[row][col] = 1
 
     def toggle(self, first_cord, second_cord):
