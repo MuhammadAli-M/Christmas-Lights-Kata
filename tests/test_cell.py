@@ -51,3 +51,11 @@ class TestLightCell(TestCase):
         cell.turn_off()
 
         self.assertEqual(cell.value, 0)
+
+    def test_cell_turn_on_after_turned_off_works(self):
+        cell = LightCell(0, 0)
+        cell.turn_off()
+
+        cell.turn_on()
+
+        self.assertEqual(cell.value, 1)
