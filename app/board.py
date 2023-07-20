@@ -21,7 +21,6 @@ class Board:
 
     def turn_off(self, first_cord, second_cord):
         self._apply_on_block(first_cord, second_cord, self.perform_turn_off)
-        self.lighted -= self.get_cells_affected_count(first_cord, second_cord)
 
     @staticmethod
     def get_cells_affected_count(first_cord, second_cord):
@@ -30,6 +29,7 @@ class Board:
         return diff_in_x * diff_in_y
 
     def perform_turn_off(self, row, col):
+        self.lighted -= (self.grid[row][col]) % 2
         self.grid[row][col] = 0
 
     @staticmethod

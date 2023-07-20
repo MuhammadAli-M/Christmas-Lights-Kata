@@ -137,3 +137,10 @@ class TestLightBoard(TestCase):
 
         self.assertEqual(board.lighted, 16)
 
+    def test_board_lighted_when_turned_4_off_should_not_decrease(self):
+        board = Board(10)
+
+        board.turn_off((0, 0), (3, 3))
+
+        self.assertEqual(board.lighted, 0)
+
