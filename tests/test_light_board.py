@@ -63,3 +63,12 @@ class TestLightBoard(TestCase):
 
         actual = list(map(lambda row: row[8:10], board.grid[8:10]))
         self.assertEqual(actual, [[1, 1], [1, 1]])
+
+    def test_board_turn_off_block_of_10_from_0_0_to_1_1(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (1, 1))
+        board.turn_off((0, 0), (1, 1))
+
+        actual = list(map(lambda row: row[0:2], board.grid[0:2]))
+        self.assertEqual(actual, [[0, 0], [0, 0]])

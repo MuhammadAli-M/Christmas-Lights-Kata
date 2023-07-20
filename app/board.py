@@ -21,3 +21,9 @@ class Board:
         for row in range(first_cord[0], second_cord[0] + 1):
             for col in range(first_cord[1], second_cord[1] + 1):
                 method(row, col)
+
+    def turn_off(self, first_cord, second_cord):
+        self._apply_on_block(first_cord, second_cord, self.perform_toggle)
+
+    def perform_turn_off(self, row, col):
+        self.grid[row][col] = 0
