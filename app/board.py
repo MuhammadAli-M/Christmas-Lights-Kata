@@ -5,10 +5,16 @@ class Board:
             map(lambda x: list(map(lambda y: 0, range(number))), range(number)))
 
     def turn_on(self, first_cord, second_cord):
-        self._apply_on_block(first_cord, second_cord, self._perform_turn_on)
+        self._apply_on_block(first_cord, second_cord, self.perform_turn_on)
 
-    def _perform_turn_on(self, col, row):
+    def perform_turn_on(self, row, col):
         self.grid[row][col] = 1
+
+    def toggle(self, first_cord, second_cord):
+        self._apply_on_block(first_cord, second_cord, self.perform_toggle)
+
+    def perform_toggle(self, row, col):
+        self.grid[row][col] = int(not self.grid[row][col])
 
     @staticmethod
     def _apply_on_block(first_cord, second_cord, method):
