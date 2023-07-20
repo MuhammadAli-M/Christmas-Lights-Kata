@@ -33,6 +33,7 @@ pip3 install -r requirements.txt
 
 - run : ```python3 -m pytest tests/```
 - run tests with coverage: ```python3 -m pytest --cov=app tests/```
+- run tests for changed code using testmon: ```ptw --runner "pytest --picked --testmon"```
 
 ### Resources
 
