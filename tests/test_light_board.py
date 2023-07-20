@@ -87,3 +87,29 @@ class TestLightBoard(TestCase):
         self.assertEqual(actual_turned_off, [[0, 0], [0, 0]])
         self.assertEqual(actual_turned_on_col, [1, 1, 1])
         self.assertEqual(actual_turned_on_row, [1, 1, 1])
+
+    def test_board_lighted_initially(self):
+        board = Board(10)
+        self.assertEqual(board.lighted, 0)
+
+    def test_board_lighted_when_turned_4_on(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (1, 1))
+
+        self.assertEqual(board.lighted, 4)
+
+    def test_board_lighted_when_turned_9_on(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (2, 2))
+
+        self.assertEqual(board.lighted, 9)
+
+    def test_board_lighted_when_turned_9_on_4_off(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (2, 2))
+        board.turn_off((1, 1), (2, 2))
+
+        self.assertEqual(board.lighted, 5)
