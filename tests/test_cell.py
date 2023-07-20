@@ -22,6 +22,13 @@ class TestLightCell(TestCase):
         self.assertEqual(cell.x, 0)
         self.assertEqual(cell.y, 0)
 
+    def test_cell_init_with_value_works(self):
+        cell = LightCell(0, 0, 1)
+
+        self.assertEqual(cell.x, 0)
+        self.assertEqual(cell.y, 0)
+        self.assertEqual(cell.value, 1)
+
     def test_cell_turn_on_works(self):
         cell = LightCell(0, 0)
         cell.turn_on()
