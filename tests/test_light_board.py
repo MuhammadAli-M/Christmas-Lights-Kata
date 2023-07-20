@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-import pytest
-
 from app.board import Board
 
 
