@@ -90,21 +90,21 @@ class TestLightBoard(TestCase):
 
     def test_board_lighted_initially(self):
         board = Board(10)
-        self.assertEqual(board.lighted, 0)
+        self.assertEqual(board.lighted_cells_count, 0)
 
     def test_board_lighted_when_turned_4_on(self):
         board = Board(10)
 
         board.turn_on((0, 0), (1, 1))
 
-        self.assertEqual(board.lighted, 4)
+        self.assertEqual(board.lighted_cells_count, 4)
 
     def test_board_lighted_when_turned_9_on(self):
         board = Board(10)
 
         board.turn_on((0, 0), (2, 2))
 
-        self.assertEqual(board.lighted, 9)
+        self.assertEqual(board.lighted_cells_count, 9)
 
     def test_board_lighted_when_turned_9_on_4_off(self):
         board = Board(10)
@@ -112,7 +112,7 @@ class TestLightBoard(TestCase):
         board.turn_on((0, 0), (2, 2))
         board.turn_off((1, 1), (2, 2))
 
-        self.assertEqual(board.lighted, 5)
+        self.assertEqual(board.lighted_cells_count, 5)
 
     def test_board_lighted_when_turned_16_on_4_off_and_toggle_4(self):
         board = Board(10)
@@ -121,7 +121,7 @@ class TestLightBoard(TestCase):
         board.turn_off((1, 1), (2, 2))
         board.toggle((2, 2), (3, 3))
 
-        self.assertEqual(board.lighted, 10)
+        self.assertEqual(board.lighted_cells_count, 10)
 
         # 1 1 0 0...
         # 1 0 1 0...
@@ -135,14 +135,14 @@ class TestLightBoard(TestCase):
         board.turn_on((0, 0), (3, 3))
         board.turn_on((1, 1), (2, 2))
 
-        self.assertEqual(board.lighted, 16)
+        self.assertEqual(board.lighted_cells_count, 16)
 
     def test_board_lighted_when_turned_4_off_should_not_decrease(self):
         board = Board(10)
 
         board.turn_off((0, 0), (3, 3))
 
-        self.assertEqual(board.lighted, 0)
+        self.assertEqual(board.lighted_cells_count, 0)
 
     def test_board_santa_instructions_works(self):
 
@@ -158,4 +158,4 @@ class TestLightBoard(TestCase):
         board.toggle((720, 196), (897, 994))
         board.toggle((831, 394), (904, 860))
 
-        self.assertEqual(board.lighted, 230022)
+        self.assertEqual(board.lighted_cells_count, 230022)

@@ -1,7 +1,7 @@
 class Board:
 
     def __init__(self, length):
-        self.lighted = 0
+        self.lighted_cells_count = 0
         self.grid = self.create_grid_with_zeros(length)
 
     @staticmethod
@@ -13,7 +13,7 @@ class Board:
                              self.perform_turn_on_for_cell)
 
     def perform_turn_on_for_cell(self, row, col):
-        self.lighted += (self.grid[row][col] + 1) % 2
+        self.lighted_cells_count += (self.grid[row][col] + 1) % 2
         self.grid[row][col] = 1
 
     def turn_off(self, first_coordinate, second_coordinate):
@@ -21,7 +21,7 @@ class Board:
                              self.perform_turn_off_for_cell)
 
     def perform_turn_off_for_cell(self, row, col):
-        self.lighted -= (self.grid[row][col]) % 2
+        self.lighted_cells_count -= (self.grid[row][col]) % 2
         self.grid[row][col] = 0
 
     def toggle(self, first_coordinate, second_coordinate):
@@ -29,7 +29,7 @@ class Board:
                              self.perform_toggle_for_cell)
 
     def perform_toggle_for_cell(self, row, col):
-        self.lighted -= ((self.grid[row][col]) * 2) - 1
+        self.lighted_cells_count -= ((self.grid[row][col]) * 2) - 1
         self.grid[row][col] = int(not self.grid[row][col])
 
     @staticmethod
