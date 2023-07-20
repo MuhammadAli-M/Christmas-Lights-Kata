@@ -113,3 +113,18 @@ class TestLightBoard(TestCase):
         board.turn_off((1, 1), (2, 2))
 
         self.assertEqual(board.lighted, 5)
+
+    def test_board_lighted_when_turned_16_on_4_off_and_toggle_4(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (3, 3))
+        board.turn_off((1, 1), (2, 2))
+        board.toggle((2, 2), (3, 3))
+
+        self.assertEqual(board.lighted, 10)
+
+        # 1 1 0 0...
+        # 1 0 1 0...
+        # 1 0 0 1...
+        # 1 1 1 1...
+

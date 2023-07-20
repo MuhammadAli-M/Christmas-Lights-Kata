@@ -16,10 +16,14 @@ class Board:
         self._apply_on_block(first_cord, second_cord, self.perform_toggle)
 
     def perform_toggle(self, row, col):
+        if self.grid[row][col]:
+            self.lighted -= 1
+        else:
+            self.lighted += 1
         self.grid[row][col] = int(not self.grid[row][col])
 
     def turn_off(self, first_cord, second_cord):
-        self._apply_on_block(first_cord, second_cord, self.perform_toggle)
+        self._apply_on_block(first_cord, second_cord, self.perform_turn_off)
         self.lighted -= self.get_cells_affected_count(first_cord, second_cord)
 
     @staticmethod
