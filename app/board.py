@@ -5,10 +5,10 @@ class Board:
 
     def __init__(self, length):
         self.lighted_cells_count = 0
-        self.grid = self.create_grid_with_zeros(length)
+        self.cells = self.initialize_cells(length)
 
     @staticmethod
-    def create_grid_with_zeros(length):
+    def initialize_cells(length):
         return [[LightCell(row, column) for column in range(length)] for row in
                 range(length)]
 
@@ -22,7 +22,7 @@ class Board:
         cell.turn_on()
 
     def get_cell(self, row, col):
-        return self.grid[row][col]
+        return self.cells[row][col]
 
     def turn_off(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
@@ -49,7 +49,7 @@ class Board:
                 method(row, col)
 
     def get_block(self, first_coordinate, second_coordinate):
-        rows = self.grid[first_coordinate[0]: second_coordinate[0] + 1]
+        rows = self.cells[first_coordinate[0]: second_coordinate[0] + 1]
 
         def get_columns(row):
             return row[first_coordinate[1]: second_coordinate[1] + 1]
