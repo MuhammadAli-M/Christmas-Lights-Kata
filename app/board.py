@@ -1,5 +1,5 @@
 from app.coordinate import Coordinate
-from tests.test_cell import LightCell
+from app.light_cell import LightCell
 
 
 class Board:
