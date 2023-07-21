@@ -33,15 +33,10 @@ class Board:
                              self.perform_turn_off_for_cell)
 
     def perform_turn_off_for_cell(self, row, col):
-        self.lighted_cells_count -= self.get_light_decrease_when_cell_turned_off(
-            col, row)
-        self.turn_cell_off(col, row)
-
-    def get_light_decrease_when_cell_turned_off(self, col, row):
-        return self.get_cell(row, col) % 2
-
-    def turn_cell_off(self, col, row):
-        self.set_cell(row, col, 0)
+        cell = LightCell(row, col, self.get_cell(row, col))
+        self.lighted_cells_count -= cell.get_light_decrease_when_cell_turned_off()
+        cell.turn_off()
+        self.set_cell(row, col, cell.value)
 
     def toggle(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,

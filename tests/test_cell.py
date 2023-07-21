@@ -23,6 +23,12 @@ class LightCell:
     def toggle(self):
         self.value = self.toggle_int(self.value)
 
+    def get_light_increase_when_cell_turned_on(self):
+        return (self.value + 1) % 2
+
+    def get_light_decrease_when_cell_turned_off(self):
+        return self.value % 2
+
     @staticmethod
     def toggle_int(value):
         return value + 1 % 2
