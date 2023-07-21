@@ -10,14 +10,14 @@ class TestLightBoard(TestCase):
 
         for row in range(1000):
             for col in range(1000):
-                self.assertEqual(board.get_cell(row, col), 0)
+                self.assertFalse(board.get_cell(row, col).is_turned_on)
 
     def test_board_init_500(self):
         board = Board(500)
 
         for row in range(500):
             for col in range(500):
-                self.assertEqual(board.get_cell(row, col), 0)
+                self.assertFalse(board.get_cell(row, col).is_turned_on)
 
     def test_board_turn_on_block_of_10_from_0_0_to_1_1(self):
         board = Board(10)

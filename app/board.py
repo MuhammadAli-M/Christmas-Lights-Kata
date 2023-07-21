@@ -17,36 +17,30 @@ class Board:
                              self.perform_turn_on_for_cell)
 
     def perform_turn_on_for_cell(self, row, col):
-        cell = LightCell(row, col, self.get_cell(row, col))
+        cell = self.get_cell(row, col)
         self.lighted_cells_count += cell.get_light_increase_when_cell_turned_on()
         cell.turn_on()
-        self.set_cell(row, col, cell.value)
 
     def get_cell(self, row, col):
-        return self.grid[row][col].value
-
-    def set_cell(self, row, col, value):
-        self.grid[row][col].value = value
+        return self.grid[row][col]
 
     def turn_off(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
                              self.perform_turn_off_for_cell)
 
     def perform_turn_off_for_cell(self, row, col):
-        cell = LightCell(row, col, self.get_cell(row, col))
+        cell = self.get_cell(row, col)
         self.lighted_cells_count -= cell.get_light_decrease_when_cell_turned_off()
         cell.turn_off()
-        self.set_cell(row, col, cell.value)
 
     def toggle(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
                              self.perform_toggle_for_cell)
 
     def perform_toggle_for_cell(self, row, col):
-        cell = LightCell(row, col, self.get_cell(row, col))
+        cell = self.get_cell(row, col)
         self.lighted_cells_count -= cell.get_light_decrease_when_cell_toggled()
         cell.toggle()
-        self.set_cell(row, col, cell.value)
 
     @staticmethod
     def _apply_on_block(first_coordinate, second_coordinate, method):
