@@ -9,7 +9,7 @@ class Board:
 
     @staticmethod
     def create_grid_with_zeros(length):
-        return [[0 for column in range(length)] for row in
+        return [[LightCell(row, column) for column in range(length)] for row in
                 range(length)]
 
     def turn_on(self, first_coordinate, second_coordinate):
@@ -23,10 +23,10 @@ class Board:
         self.set_cell(row, col, cell.value)
 
     def get_cell(self, row, col):
-        return self.grid[row][col]
+        return self.grid[row][col].value
 
     def set_cell(self, row, col, value):
-        self.grid[row][col] = value
+        self.grid[row][col].value = value
 
     def turn_off(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
@@ -55,7 +55,13 @@ class Board:
                 method(row, col)
 
     def get_block(self, first_coordinate, second_coordinate):
-        return list(
-            map(lambda row: row[first_coordinate[1]: second_coordinate[1] + 1],
-                self.grid[
-                first_coordinate[0]: second_coordinate[0] + 1]))
+        rows = self.grid[first_coordinate[0]: second_coordinate[0] + 1]
+
+        def get_columns(row):
+            return row[first_coordinate[1]: second_coordinate[1] + 1]
+
+        def get_value(cell): return cell.value
+
+        return list(map(lambda row:
+                        list(map(lambda col: get_value(col), get_columns(row))),
+                        rows))
