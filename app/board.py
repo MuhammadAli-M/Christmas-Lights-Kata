@@ -1,3 +1,4 @@
+from app.coordinate import Coordinate
 from tests.test_cell import LightCell
 
 
@@ -44,15 +45,25 @@ class Board:
 
     @staticmethod
     def _apply_on_block(first_coordinate, second_coordinate, method):
-        for row in range(first_coordinate[0], second_coordinate[0] + 1):
-            for col in range(first_coordinate[1], second_coordinate[1] + 1):
+        range_inclusive_offset = 1
+        first_coordinate = Coordinate(first_coordinate)
+        second_coordinate = Coordinate(second_coordinate)
+        for row in range(first_coordinate.x,
+                         second_coordinate.x + range_inclusive_offset):
+            for col in range(first_coordinate.y,
+                             second_coordinate.y + range_inclusive_offset):
                 method(row, col)
 
-    def get_block(self, first_coordinate, second_coordinate):
-        rows = self.cells[first_coordinate[0]: second_coordinate[0] + 1]
+    def get_block(self, first_coordinate: Coordinate,
+                  second_coordinate: Coordinate):
+        first_coordinate, second_coordinate = Coordinate(first_coordinate), Coordinate(second_coordinate)
+        range_inclusive_offset = 1
+        rows = self.cells[
+               first_coordinate.x: second_coordinate.x + range_inclusive_offset]
 
         def get_columns(row):
-            return row[first_coordinate[1]: second_coordinate[1] + 1]
+            return row[
+                   first_coordinate.y: second_coordinate.y + range_inclusive_offset]
 
         def get_value(cell): return cell.value
 
