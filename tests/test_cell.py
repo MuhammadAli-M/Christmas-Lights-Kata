@@ -20,6 +20,13 @@ class LightCell:
     def is_turned_on(self):
         return self.value == self.TURNED_ON_VALUE
 
+    def toggle(self):
+        self.value = self.toggle_int(self.value)
+
+    @staticmethod
+    def toggle_int(value):
+        return value + 1 % 2
+
 
 class TestLightCell(TestCase):
 
@@ -65,3 +72,18 @@ class TestLightCell(TestCase):
 
         self.assertEqual(cell.value, 1)
         self.assertTrue(cell.is_turned_on)
+
+    def test_cell_toggle_after_turn_off_works(self):
+        cell = LightCell(0, 0)
+
+        cell.toggle()
+
+        self.assertTrue(cell.is_turned_on)
+
+    def test_cell_toggle_after_turn_on_works(self):
+        cell = LightCell(0, 0)
+        cell.turn_on()
+
+        cell.toggle()
+
+        self.assertFalse(cell.is_turned_on)
