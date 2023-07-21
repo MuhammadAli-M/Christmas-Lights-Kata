@@ -14,8 +14,15 @@ class Board:
                              self.perform_turn_on_for_cell)
 
     def perform_turn_on_for_cell(self, row, col):
-        self.lighted_cells_count += (self.get_cell(row, col) + 1) % 2
+        self.lighted_cells_count += self.get_light_increase_when_cell_turned_on(
+            col, row)
+        self.turn_cell_on(col, row)
+
+    def turn_cell_on(self, col, row):
         self.set_cell(row, col, 1)
+
+    def get_light_increase_when_cell_turned_on(self, col, row):
+        return (self.get_cell(row, col) + 1) % 2
 
     def set_cell(self, row, col, value):
         self.grid[row][col] = value
@@ -28,7 +35,14 @@ class Board:
                              self.perform_turn_off_for_cell)
 
     def perform_turn_off_for_cell(self, row, col):
-        self.lighted_cells_count -= self.get_cell(row, col) % 2
+        self.lighted_cells_count -= self.get_light_decrease_when_cell_turned_off(
+            col, row)
+        self.turn_cell_off(col, row)
+
+    def get_light_decrease_when_cell_turned_off(self, col, row):
+        return self.get_cell(row, col) % 2
+
+    def turn_cell_off(self, col, row):
         self.set_cell(row, col, 0)
 
     def toggle(self, first_coordinate, second_coordinate):
@@ -36,7 +50,14 @@ class Board:
                              self.perform_toggle_for_cell)
 
     def perform_toggle_for_cell(self, row, col):
-        self.lighted_cells_count -= (self.get_cell(row, col) * 2) - 1
+        self.lighted_cells_count -= self.get_light_decrease_when_cell_toggled(
+            col, row)
+        self.toggle_cell(col, row)
+
+    def get_light_decrease_when_cell_toggled(self, col, row):
+        return (self.get_cell(row, col) * 2) - 1
+
+    def toggle_cell(self, col, row):
         self.set_cell(row, col, int(not self.get_cell(row, col)))
 
     @staticmethod
