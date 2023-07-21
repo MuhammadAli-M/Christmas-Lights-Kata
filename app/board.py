@@ -43,16 +43,10 @@ class Board:
                              self.perform_toggle_for_cell)
 
     def perform_toggle_for_cell(self, row, col):
-        self.lighted_cells_count -= self.get_light_decrease_when_cell_toggled(
-            col, row)
-        self.toggle_cell(col, row)
-
-    def get_light_decrease_when_cell_toggled(self, col, row):
-        return (self.get_cell(row, col) * 2) - 1
-
-    def toggle_cell(self, col, row):
-        value = int(not self.get_cell(row, col))
-        self.grid[row][col] = value
+        cell = LightCell(row, col, self.get_cell(row, col))
+        self.lighted_cells_count -= cell.get_light_decrease_when_cell_toggled()
+        cell.toggle()
+        self.set_cell(row, col, cell.value)
 
     @staticmethod
     def _apply_on_block(first_coordinate, second_coordinate, method):

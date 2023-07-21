@@ -29,9 +29,12 @@ class LightCell:
     def get_light_decrease_when_cell_turned_off(self):
         return self.value % 2
 
+    def get_light_decrease_when_cell_toggled(self):
+        return (self.value * 2) - 1
+
     @staticmethod
     def toggle_int(value):
-        return value + 1 % 2
+        return int(not value)
 
 
 class TestLightCell(TestCase):
