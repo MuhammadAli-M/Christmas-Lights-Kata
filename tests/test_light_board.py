@@ -157,3 +157,10 @@ class TestLightBoard(TestCase):
         board.toggle((831, 394), (904, 860))
 
         self.assertEqual(board.lighted_cells_count, 230022)
+
+    def test_get_block_works(self):
+        board = Board(10)
+
+        block = board.get_block((0, 0), (1, 1))
+
+        self.assertEqual(block, [[0, 0], [0, 0]])

@@ -44,3 +44,9 @@ class Board:
         for row in range(first_coordinate[0], second_coordinate[0] + 1):
             for col in range(first_coordinate[1], second_coordinate[1] + 1):
                 method(row, col)
+
+    def get_block(self, first_coordinate, second_coordinate):
+        return list(
+            map(lambda row: row[first_coordinate[1]: second_coordinate[1] + 1],
+                self.grid[
+                first_coordinate[0]: second_coordinate[0] + 1]))
