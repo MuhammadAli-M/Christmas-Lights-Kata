@@ -6,31 +6,38 @@ class Board:
 
     @staticmethod
     def create_grid_with_zeros(length):
-        return [[0 for _ in range(length)] for _ in range(length)]
+        return [[0 for column in range(length)] for row in
+                range(length)]
 
     def turn_on(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
                              self.perform_turn_on_for_cell)
 
     def perform_turn_on_for_cell(self, row, col):
-        self.lighted_cells_count += (self.grid[row][col] + 1) % 2
-        self.grid[row][col] = 1
+        self.lighted_cells_count += (self.get_cell(row, col) + 1) % 2
+        self.set_cell(row, col, 1)
+
+    def set_cell(self, row, col, value):
+        self.grid[row][col] = value
+
+    def get_cell(self, row, col):
+        return self.grid[row][col]
 
     def turn_off(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
                              self.perform_turn_off_for_cell)
 
     def perform_turn_off_for_cell(self, row, col):
-        self.lighted_cells_count -= (self.grid[row][col]) % 2
-        self.grid[row][col] = 0
+        self.lighted_cells_count -= self.get_cell(row, col) % 2
+        self.set_cell(row, col, 0)
 
     def toggle(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
                              self.perform_toggle_for_cell)
 
     def perform_toggle_for_cell(self, row, col):
-        self.lighted_cells_count -= ((self.grid[row][col]) * 2) - 1
-        self.grid[row][col] = int(not self.grid[row][col])
+        self.lighted_cells_count -= (self.get_cell(row, col) * 2) - 1
+        self.set_cell(row, col, int(not self.get_cell(row, col)))
 
     @staticmethod
     def _apply_on_block(first_coordinate, second_coordinate, method):
