@@ -1,3 +1,6 @@
+from tests.test_cell import LightCell
+
+
 class Board:
 
     def __init__(self, length):
@@ -14,21 +17,16 @@ class Board:
                              self.perform_turn_on_for_cell)
 
     def perform_turn_on_for_cell(self, row, col):
-        self.lighted_cells_count += self.get_light_increase_when_cell_turned_on(
-            col, row)
-        self.turn_cell_on(col, row)
-
-    def turn_cell_on(self, col, row):
-        self.set_cell(row, col, 1)
-
-    def get_light_increase_when_cell_turned_on(self, col, row):
-        return (self.get_cell(row, col) + 1) % 2
-
-    def set_cell(self, row, col, value):
-        self.grid[row][col] = value
+        cell = LightCell(row, col, self.get_cell(row, col))
+        self.lighted_cells_count += cell.get_light_increase_when_cell_turned_on()
+        cell.turn_on()
+        self.set_cell(row, col, cell.value)
 
     def get_cell(self, row, col):
         return self.grid[row][col]
+
+    def set_cell(self, row, col, value):
+        self.grid[row][col] = value
 
     def turn_off(self, first_coordinate, second_coordinate):
         self._apply_on_block(first_coordinate, second_coordinate,
@@ -58,7 +56,8 @@ class Board:
         return (self.get_cell(row, col) * 2) - 1
 
     def toggle_cell(self, col, row):
-        self.set_cell(row, col, int(not self.get_cell(row, col)))
+        value = int(not self.get_cell(row, col))
+        self.grid[row][col] = value
 
     @staticmethod
     def _apply_on_block(first_coordinate, second_coordinate, method):
