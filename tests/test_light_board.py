@@ -19,7 +19,7 @@ class TestLightBoard(TestCase):
             for col in range(500):
                 self.assertEqual(board.get_cell(row, col), 0)
 
-    def test_board_turn_on_block_of_10_from_0_0_to_1_1(self):
+    def test_board_turn_on_block_of_10_from_0_0_to_1_1_without_get_block(self):
         board = Board(10)
 
         board.turn_on((0, 0), (1, 1))
@@ -27,10 +27,32 @@ class TestLightBoard(TestCase):
         actual = list(map(lambda row: row[0:2], board.grid[0:2]))
         self.assertEqual(actual, [[1, 1], [1, 1]])
 
+    def test_board_turn_on_block_of_10_from_0_0_to_1_1(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (1, 1))
+
+        self.assertEqual(board.get_block((0, 0), (1, 1)), [[1, 1], [1, 1]])
+
+    def test_board_turn_on_block_of_10_from_8_8_to_9_9_without_get_block(self):
+        board = Board(10)
+
+        board.turn_on((8, 8), (9, 9))
+
+        actual = list(map(lambda row: row[8:10], board.grid[8:10]))
+        self.assertEqual(actual, [[1, 1], [1, 1]])
+
     def test_board_turn_on_block_of_10_from_8_8_to_9_9(self):
         board = Board(10)
 
         board.turn_on((8, 8), (9, 9))
+
+        self.assertEqual(board.get_block((8, 8), (9, 9)), [[1, 1], [1, 1]])
+
+    def test_board_toggle_block_of_10_from_8_8_to_9_9_without_get_block(self):
+        board = Board(10)
+
+        board.toggle((8, 8), (9, 9))
 
         actual = list(map(lambda row: row[8:10], board.grid[8:10]))
         self.assertEqual(actual, [[1, 1], [1, 1]])
@@ -40,10 +62,10 @@ class TestLightBoard(TestCase):
 
         board.toggle((8, 8), (9, 9))
 
-        actual = list(map(lambda row: row[8:10], board.grid[8:10]))
-        self.assertEqual(actual, [[1, 1], [1, 1]])
+        self.assertEqual(board.get_block((8, 8), (9, 9)), [[1, 1], [1, 1]])
 
-    def test_board_toggle_block_of_10_from_8_8_to_9_9_twice(self):
+    def test_board_toggle_block_of_10_from_8_8_to_9_9_twice_without_get_block(
+            self):
         board = Board(10)
 
         board.toggle((8, 8), (9, 9))
@@ -51,6 +73,25 @@ class TestLightBoard(TestCase):
 
         actual = list(map(lambda row: row[8:10], board.grid[8:10]))
         self.assertEqual(actual, [[0, 0], [0, 0]])
+
+    def test_board_toggle_block_of_10_from_8_8_to_9_9_twice(self):
+        board = Board(10)
+
+        board.toggle((8, 8), (9, 9))
+        board.toggle((8, 8), (9, 9))
+
+        self.assertEqual(board.get_block((8, 8), (9, 9)), [[0, 0], [0, 0]])
+
+    def test_board_toggle_block_of_10_from_8_8_to_9_9_thrice_without_get_block(
+            self):
+        board = Board(10)
+
+        board.toggle((8, 8), (9, 9))
+        board.toggle((8, 8), (9, 9))
+        board.toggle((8, 8), (9, 9))
+
+        actual = list(map(lambda row: row[8:10], board.grid[8:10]))
+        self.assertEqual(actual, [[1, 1], [1, 1]])
 
     def test_board_toggle_block_of_10_from_8_8_to_9_9_thrice(self):
         board = Board(10)
@@ -59,10 +100,9 @@ class TestLightBoard(TestCase):
         board.toggle((8, 8), (9, 9))
         board.toggle((8, 8), (9, 9))
 
-        actual = list(map(lambda row: row[8:10], board.grid[8:10]))
-        self.assertEqual(actual, [[1, 1], [1, 1]])
+        self.assertEqual(board.get_block((8, 8), (9, 9)), [[1, 1], [1, 1]])
 
-    def test_board_turn_off_block_of_10_from_0_0_to_1_1(self):
+    def test_board_turn_off_block_of_10_from_0_0_to_1_1_without_get_block(self):
         board = Board(10)
 
         board.turn_on((0, 0), (1, 1))
@@ -71,7 +111,15 @@ class TestLightBoard(TestCase):
         actual = list(map(lambda row: row[0:2], board.grid[0:2]))
         self.assertEqual(actual, [[0, 0], [0, 0]])
 
-    def test_board_turn_off_partial_part_of_turned_on(self):
+    def test_board_turn_off_block_of_10_from_0_0_to_1_1(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (1, 1))
+        board.turn_off((0, 0), (1, 1))
+
+        self.assertEqual(board.get_block((0, 0), (1, 1)), [[0, 0], [0, 0]])
+
+    def test_board_turn_off_partial_part_of_turned_on_without_get_block(self):
         board = Board(10)
 
         board.turn_on((0, 0), (2, 2))
@@ -81,10 +129,23 @@ class TestLightBoard(TestCase):
         # 0 0 1 0...
         actual_turned_on_col = list(map(lambda row: row[2], board.grid[0:3]))
         actual_turned_on_row = board.grid[2][0:3]
-        actual_turned_off = list(map(lambda row: row[0:2], board.grid[0:2]))
-        self.assertEqual(actual_turned_off, [[0, 0], [0, 0]])
+        self.assertEqual(board.get_block((0, 0), (1, 1)), [[0, 0], [0, 0]])
         self.assertEqual(actual_turned_on_col, [1, 1, 1])
         self.assertEqual(actual_turned_on_row, [1, 1, 1])
+
+    def test_board_turn_off_partial_part_of_turned_on(self):
+        board = Board(10)
+
+        board.turn_on((0, 0), (2, 2))
+        board.turn_off((0, 0), (1, 1))
+        # 1 1 1 0...
+        # 0 0 1 0...
+        # 0 0 1 0...
+        actual_turned_on_col = board.get_block((2, 0), (2, 2))
+        actual_turned_on_row = board.get_block((0, 2), (2, 2))
+        self.assertEqual(board.get_block((0, 0), (1, 1)), [[0, 0], [0, 0]])
+        self.assertEqual(actual_turned_on_col, [[1, 1, 1]])
+        self.assertEqual(actual_turned_on_row, [[1], [1], [1]])
 
     def test_board_lighted_initially(self):
         board = Board(10)
